@@ -1,60 +1,39 @@
 <html>
-<head>
-  <title>Welcome</title>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <div class="container">
-    <h1>Welcome to MyApp</h1>
-    <div class="signup">
-      <h2>Sign Up</h2>
-      <%= form_with model: @user, url: signup_path, local: true do |form| %>
-        <div class="field">
-          <%= form.label :name %>
-          <%= form.text_field :name %>
-        </div>
+    <head>
+    <title>Welcome</title>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <h1 class="text-center mb-4">Welcome to MyApp</h1>
 
-        <div class="field">
-          <%= form.label :email %>
-          <%= form.email_field :email %>
+                    <div class="card">
+                        <div class="card-header">Log In</div>
+                        <div class="card-body">
+                            <%= form_with url: login_path, local: true do |form| %>
+                            <div class="form-group">
+                                <%= form.label :email %>
+                                <%= form.email_field :email, class: 'form-control' %>
+                            </div>
+                            
+                            <div class="form-group">
+                                <%= form.label :password %>
+                                <%= form.password_field :password, class: 'form-control' %>
+                            </div>
+                            
+                            <div class="form-group text-center">
+                                <%= form.submit 'Log In', class: 'btn btn-primary' %>
+                                <%= link_to 'Sign Up', signup_path, class: 'nav-link' %>
+                            </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="field">
-          <%= form.label :password %>
-          <%= form.password_field :password %>
-        </div>
-
-        <div class="field">
-          <%= form.label :password_confirmation %>
-          <%= form.password_field :password_confirmation %>
-        </div>
-
-        <div class="actions">
-          <%= form.submit 'Sign Up' %>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="login">
-      <h2>Log In</h2>
-      <%= form_with url: login_path, local: true do |form| %>
-        <div class="field">
-          <%= form.label :email %>
-          <%= form.email_field :email %>
-        </div>
-
-        <div class="field">
-          <%= form.label :password %>
-          <%= form.password_field :password %>
-        </div>
-
-        <div class="actions">
-          <%= form.submit 'Log In' %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</body>
+    </body>
 </html>
