@@ -1,8 +1,16 @@
 class FundraisersController < ApplicationController
-  def show
+  def index
     @fundraisers = Fundraiser.all
+  end
 
-    @fundraisers
+  def show
+    @fundraiser = Fundraiser.find(params[:id])
+
+    if @fundraiser.present?
+      @fundraiser
+    else
+      render :not_found
+    end
   end
 
   def create

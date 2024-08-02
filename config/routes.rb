@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   get "login", to: "sessions#new", as: "login"
   post "login", to: "sessions#create"
   get "logout", to: "sessions#destroy", as: "logout"
-  get "home", to: "fundraisers#show", as: "home"
+  get "home", to: "fundraisers#index", as: "home"
 
   resources :users, only: [ :new, :create ]
+  resources :fundraisers, only: [ :new, :create, :show ]
 end
