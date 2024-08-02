@@ -38,7 +38,12 @@
     </div>
   </nav>
   <div class="container">
+    <% flash.map do |key, value| %>
+      <div class="flash"><%= value %></div>
+    <% end %>
+    
     <%= yield %>
+
   </div>
 </body>
 </html>

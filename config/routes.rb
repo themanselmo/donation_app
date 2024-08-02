@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   get "signup", to: "users#create"
   get "login", to: "sessions#new", as: "login"
   post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy", as: "logout"
+  get "logout", to: "sessions#destroy", as: "logout"
+  get "home", to: "fundraisers#show", as: "home"
 
   resources :users, only: [ :new, :create ]
 end
