@@ -1,0 +1,23 @@
+ <div class="container mt-5">
+    <div class="row">
+      <% @my_fundraisers.each do |fundraiser| %>
+        <%= link_to fundraiser_path(fundraiser.id), class: 'nav-link' do %>
+        <div class="col-md-4 hover-overlay hover-zoom hover-shadow ripple">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title"><%= fundraiser.name %></h5>
+              <p class="card-text"><%= fundraiser.description %></p>
+              <p class="card-text"><strong>Goal:</strong> $<%= fundraiser.goal_amount %></p>
+              <p class="card-text"><strong>Current:</strong> $<%= fundraiser.current_amount %></p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: <%= (fundraiser.current_amount / fundraiser.goal_amount) * 100 %>%;" aria-valuenow="<%= (fundraiser.current_amount / fundraiser.goal_amount) * 100 %>" aria-valuemin="0" aria-valuemax="100">
+                  <%= number_to_percentage((fundraiser.current_amount / fundraiser.goal_amount) * 100, precision: 0) %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>

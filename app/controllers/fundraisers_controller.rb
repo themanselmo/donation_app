@@ -28,6 +28,10 @@ class FundraisersController < ApplicationController
     end
   end
 
+  def my_fundraisers
+    @my_fundraisers = current_user.fundraisers
+  end
+
   private
 
   def fundraiser_params
