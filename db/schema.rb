@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_01_222542) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_02_143236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "donations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.decimal "amount"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "fundraiser_id", null: false
+    t.index ["fundraiser_id"], name: "index_donations_on_fundraiser_id"
+    t.index ["user_id"], name: "index_donations_on_user_id"
+  end
+
+  create_table "fundraisers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.string "description"
+    t.decimal "goal_amount"
+    t.decimal "current_amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_fundraisers_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -21,4 +43,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_01_222542) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "donations", "fundraisers"
+  add_foreign_key "donations", "users"
+  add_foreign_key "fundraisers", "users"
 end
