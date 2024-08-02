@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <h1>Create a New Fundraiser</h1>
+
+  <%= form_with model: @fundraiser, local: true do |form| %>
+    <% if @fundraiser.present? && @fundraiser.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@fundraiser.errors.count, "error") %> prohibited this fundraiser from being saved:</h4>
+        <ul>
+          <% @fundraiser.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :name, 'Fundraiser Name' %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :goal_amount, 'Goal Amount ($)' %>
+      <%= form.number_field :goal_amount, step: '0.01', class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :description, 'Description' %>
+      <%= form.text_area :description, rows: 4, class: 'form-control' %>
+    </div>
+
+    <div class="form-group text-center">
+      <%= form.submit 'Create Fundraiser', method: :post, class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

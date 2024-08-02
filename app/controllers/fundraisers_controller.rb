@@ -13,10 +13,16 @@ class FundraisersController < ApplicationController
     end
   end
 
+  def new
+    @fundraiser = Fundraiser.new
+  end
+
   def create
     @fundraiser = Fundraiser.new(fundraiser_params)
+    @fundraiser.user = current_user
+
     if @fundraiser.save
-      # redirect to fundraiaser_details
+      redirect_to fundraiser_path(@fundraiser.id)
     else
       render :new
     end
