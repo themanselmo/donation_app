@@ -11,6 +11,10 @@ class DonationsController < ApplicationController
     end
   end
 
+  def my_donations
+    @my_donations = current_user.donations
+  end
+
   private
 
   def donation_params

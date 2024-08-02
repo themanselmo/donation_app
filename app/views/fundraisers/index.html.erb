@@ -1,9 +1,9 @@
- <div class="container mt-5">
-    <div class="row">
-      <% @fundraisers.each do |fundraiser| %>
+<div class="container mt-5">
+  <div class="row">
+    <% @fundraisers.each do |fundraiser| %>
+      <div class="col-12 col-sm-6 col-md-4 mb-4">
         <%= link_to fundraiser_path(fundraiser.id), class: 'nav-link' do %>
-        <div class="col-md-4">
-          <div class="card mb-4">
+          <div class="card h-100">
             <div class="card-body">
               <h5 class="card-title"><%= fundraiser.name %></h5>
               <p class="card-text"><%= fundraiser.description %></p>
@@ -16,8 +16,8 @@
               </div>
             </div>
           </div>
-        </div>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
+</div>
