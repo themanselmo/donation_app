@@ -5,6 +5,8 @@ class DonationsController < ApplicationController
     @donation.user_id = current_user.id
 
     if @donation.save
+      UserMailer.donation_received(@donation).deliver_later
+
       redirect_to @fundraiser, notice: "Donation made successfully!"
     else
       redirect_to @fundraiser, alert: "Failed to make donation."
