@@ -38,10 +38,18 @@
             <h5 class="mt-4">Donors</h5>
             <ul class="list-group">
               <% if @fundraiser.donations.present? %>
-                <% @fundraiser.donations.filter(&:id).each do |donation| %>
+                <% @fundraiser.donations.order(is_pinned: :desc).filter(&:id).each do |donation| %>
                   <li class="list-group-item">
                     <span><%= donation.user.name %>: $<%= donation.amount %></span>
                     <span><%= donation.message %></span>
+                    <% if donation.is_pinned %>
+                      <span>PINNED</span>
+                    <% end %>
+                    <% if current_user.id == @fundraiser.user.id %>
+                      <button onclick="togglePinned(<%= donation.id %>)">
+                        <%= donation.is_pinned ? 'Unpin' : 'Pin' %>
+                      </button>
+                    <% end %>
                   </li>
                 <% end %>
               <% else %>
@@ -66,5 +74,28 @@
           }
         });
       });
+
+      function togglePinned(donationId) {
+        fetch(`/donations/${donationId}/toggle_pinned`, {
+          method: 'PATCH',
+          headers: {
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Content-Type': 'application/json',
+            'Accept': 'application/javascript'
+          }
+        })
+        .then(response => response.text())
+        .then(data => {
+          // Update the list item to reflect the change
+          const listItem = document.getElementById(`donation-${donationId}`);
+          const button = listItem.querySelector('button');
+          if (button.textContent === 'Pin') {
+            button.textContent = 'Unpin';
+          } else {
+            button.textContent = 'Pin';
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      }
     </script>
   </div>

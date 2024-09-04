@@ -17,6 +17,16 @@ class DonationsController < ApplicationController
     @my_donations = current_user.donations
   end
 
+  def toggle_pinned
+    @donation = Donation.find(params[:id])
+
+    if @donation.present?
+      @donation.update(is_pinned: !@donation.is_pinned)
+    else
+      # return not found
+    end
+  end
+
   private
 
   def donation_params

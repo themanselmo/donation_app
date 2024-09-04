@@ -18,10 +18,13 @@ Rails.application.routes.draw do
   get "home", to: "fundraisers#index", as: "home"
   get "my_fundraisers", to: "fundraisers#my_fundraisers", as: "my_fundraisers"
   get "my_donations", to: "donations#my_donations", as: "my_donations"
-
   resources :users, only: [ :new, :create ]
   resources :fundraisers, only: [ :new, :create, :show ] do
     resources :donations, only: [ :create ]
   end
-  resources :donations, only: [ :create ]
+  resources :donations, only: [ :create ] do
+    member do
+      patch :toggle_pinned
+    end
+  end
 end
